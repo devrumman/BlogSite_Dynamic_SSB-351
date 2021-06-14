@@ -12,9 +12,9 @@
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="dashboard.php" method="post">
+      <form action="" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -40,7 +40,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <input type="submit" name="login" class="btn btn-primary btn-block" value="Sing In">
           </div>
           <!-- /.col -->
         </div>
@@ -68,6 +68,71 @@
   <!-- /.card -->
 </div>
 <!-- /.login-box -->
+
+
+<?php 
+
+   if (isset($_POST['login']))
+   {
+    $email    = mysqli_real_escape_string($connect, $_POST['email']) ;
+    $password = mysqli_real_escape_string($connect, $_POST['password']);
+
+    $hashedpass = sha1($password);
+
+    $query = " SELECT * FROM users WHERE email='$email' AND status= 1 ";
+    $data = mysqli_query($connect, $query);
+
+    $count = mysqli_num_rows($data);
+
+    if ($count > 0)
+    {
+      while ($row = mysqli_fetch_array($data))
+
+        {
+          $_SESSION['user_id']     = $row['user_id'];
+          $_SESSION['fullname']    = $row['fullname'];
+          $_SESSION['username']    = $row['username'];
+          $_SESSION['email']       = $row['email'];
+          
+          $password                = $row['password'];
+          $phone                   = $row['phone'];
+          $address                 = $row['address'];
+          
+          $_SESSION['status']      = $row['status'];
+          $_SESSION['user_role']   = $row['user_role'];
+          
+          $join_date               = $row['join_date'];
+          
+
+          if ($_SESSION['email'] == $email && $password ==  $hashedpass)
+          {
+            header("Location: dashboard.php");
+          }
+          else if ($_SESSION['email'] != $email || $email !=  $hashedpass)
+          {
+            header("Location: index.php");
+          }
+          else{
+            header("Location: index.php");
+          }
+        }
+    }
+
+    else if ($count <= 0)
+    {
+      echo ' <div class="alert alert-danger btn-alert" >Sorry! Your Given Information Is Invalid. </div>';
+    }
+
+    
+   }
+
+
+?>
+
+
+
+
+
 
 <?php 
   include "inc/auth/footer.php";

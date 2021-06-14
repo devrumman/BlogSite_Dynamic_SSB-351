@@ -1,31 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin | Registration Page</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-</head>
+<?php include "inc/auth/header.php";?>
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Admin</b></a>
+      <a href="index2.html" class="h1"><b>Admin</b>LTE</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="../../index.html" method="post">
+      <form action="" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
+          <input type="text" class="form-control" name="fullname" placeholder="Full name" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -33,7 +18,15 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="text" class="form-control" name="username" placeholder="User name" required="required">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" name="email" placeholder="Email" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -41,7 +34,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -49,7 +42,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" class="form-control" name="repassword" placeholder="Retype password" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -67,12 +60,13 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <input type="submit" class="btn btn-primary btn-block" name="register" value="Register">
           </div>
           <!-- /.col -->
         </div>
       </form>
 
+             
       <div class="social-auth-links text-center">
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i>
@@ -86,16 +80,44 @@
 
       <a href="index.php" class="text-center">I already have a membership</a>
     </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
+    
+  </div>
+   <?php
+
+              if (isset($_POST['register']))
+                  {
+                    $fullname      = $_POST['fullname'];
+                    $username      = $_POST['username'];
+                    $email         = $_POST['email'];
+                    $phone         = $_POST['phone'];
+                    $password      = $_POST['password'];
+                    $repassword    = $_POST['repassword'];
+                    if ($password == $repassword )
+                    {
+                        //Encrypted password
+                        $hashedPass = sha1($password);
+                        
+                        $addUser = "INSERT INTO users (fullname, username, email, password, phone, join_date) VALUES ('$fullname', '$username', '$email', '$hashedPass', '$phone', now() )";
+                      
+                        $registerUser = mysqli_query($connect, $addUser);
+                        // echo $registerUser;
+                        if ($registerUser)
+                        {
+                          echo '<div class="btn btn-success" style="margin-top: 15px; text-align: center;" >Sorry! New MEMBER have been Successfully Added </div>';
+                          // header("Location: index.php") . "New Mamber Added";
+                        }
+                        else
+                        {
+                          header("Location: index.php");
+                          // echo '<div class="btn btn-danger" style="margin-top: 15px;b text-align: center;" >Sorry! New MEMBER Successfully Added </div>';
+                        }
+                    }
+                  }
+
+              ?>  
+
+
 </div>
 <!-- /.register-box -->
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-</body>
-</html>
+<?php include "inc/auth/footer.php";?>

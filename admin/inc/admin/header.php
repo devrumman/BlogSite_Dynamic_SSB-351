@@ -1,7 +1,13 @@
 
 <?php 
   ob_start();
+  session_start();
   include "inc/db.php";
+
+  if (empty($_SESSION['email']) && empty($_SESSION['user_id'])) 
+  {
+    header("Location: index.php");
+  }
  ?>
 
 <!DOCTYPE html>
@@ -40,6 +46,6 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+  </div> -->

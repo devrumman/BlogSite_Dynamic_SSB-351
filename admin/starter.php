@@ -1,5 +1,3 @@
-
-
 <?php
         include "inc/admin/header.php";
          include "inc/admin/topbar.php";
