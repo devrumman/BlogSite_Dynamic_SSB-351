@@ -29,8 +29,7 @@
           // Condition ? True : False ;
           $do = isset($_GET['do']) ? $_GET['do'] : 'View'; 
 
-
-           
+         
             if ( $do == "View" ) 
             {
               $viewID = $_SESSION['user_id'];
@@ -48,7 +47,6 @@
                 $email      = $row['email'];
                 $password   = $row['password'];
                 $phone      = $row['phone'];
-                $gender     = $row['gender'];
                 $address    = $row['address'];
                 $status     = $row['status'];
                 $user_role  = $row['user_role'];
@@ -95,15 +93,7 @@
                         </div>
 
                         <div class="col-lg-6">
-                        <div class="form-group">
-                        <label>Gender</label>
-                        <select name="gender" class="form-control" value="<?php echo $gender; ?>">
-                          <option value="2">Please Select The Gender</option>
-                          <option value="1" <?php if ($gender == 1) {echo 'selected';} ?> >Male</option>
-                          <option value="2" <?php if ($gender == 2) {echo 'selected';} ?> >Female</option>
-                        </select>
-                        </div>
-                          
+                        
                         <div class="form-group">
                         <label>Phone No.</label>
                         <input type="text" name="phone" class="form-control" required="required" autocomplete="off" value="<?php echo $phone; ?>">
@@ -178,7 +168,6 @@
                 $fullname     = $_POST['fullname'];
                 $username     = $_POST['username'];
                 $email        = $_POST['email'];
-                $gender       = $_POST['gender'];
                 $phone        = $_POST['phone'];
                 $address      = $_POST['address'];
                 $status       = $_POST['status'];
@@ -216,7 +205,7 @@
                     // Move the file to it's destination folder
                     move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
 
-                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
+                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
 
                     $updateUserInfo = mysqli_query($connect, $query);
 
@@ -240,7 +229,7 @@
                     $hassedPass = sha1($password);
 
               
-                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
+                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
 
                     $updateUserInfo = mysqli_query($connect, $query);
 
@@ -277,7 +266,7 @@
                   // Move the file to it's destination folder
                   move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
 
-                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
+                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
 
                   $updateUserInfo = mysqli_query($connect, $query);
 
@@ -294,7 +283,7 @@
                 ////////////////////////////////////////////
                 else if ( empty($password) && empty($image))
                 {
-                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
+                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
 
                   $updateUserInfo = mysqli_query($connect, $query);
 

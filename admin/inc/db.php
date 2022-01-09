@@ -1,6 +1,6 @@
 
 <?php 
-	$connect = mysqli_connect("localhost", "root", "", "ssb351");
+	$connect = mysqli_connect("localhost", "root", "", "ssb_351_rumman");
  
 	if ($connect) 
 	{

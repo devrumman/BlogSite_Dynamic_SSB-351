@@ -296,7 +296,7 @@
                               <div class="action-bar">
                                 <ul>
                                   <li><a href="category.php?update_id=<?php echo $cat_id;?> "><i class="fa fa-edit"></i></a></li>
-                                  <li><a href="" data-toggle="modal" data-target="#deleteUser "><i class="fa fa-trash"></i></a></li>
+                                  <li><href="" data-toggle="modal" data-target="#deleteUser<?php echo $cat_id; ?>"><i class="fa fa-trash"></i></a></li>
                                 </ul>
                               </div>
                             </td>
@@ -316,9 +316,9 @@
                                   </div>
                                   <div class="modal-footer">
 
-                                    <form action="" mathod="POST">
-                                      <a href="category.php?id=<?php echo $cat_id;?>" type="submit" class="btn btn-success" data-dismiss="modal">Close</a>
-                                      <a href="category.php?id=<?php echo $cat_id;?>" type="button" class="btn btn-danger">Confirm To Delete</a>
+                                    <form action="users.php?do=Delete&d_id=<?php echo $cat_id; ?>" method ="POST">
+                                        <input type="submit" name="deleteUser" class="btn btn-danger" value="Confirm">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
                                     </form>
 
                                   </div>
@@ -369,7 +369,7 @@
                               <div class="action-bar">
                                 <ul>
                                   <li><a href="category.php?update_id=<?php echo $child_cat_id; ?>"><i class="fa fa-edit"></i></a></li>
-                                  <li><a href="category.php?delete_id=<?php echo $child_cat_id; ?>"><i class="fa fa-trash"></i></a></li>
+                                  <li><a href="" data-toggle="modal" data-target="#deleteUser<?php echo $child_cat_id; ?>"><i class="fa fa-trash"></i></a></li>
                                 </ul>
                               </div>
                             </td>
@@ -385,11 +385,10 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    If You Delete Your Full Info. You Want Click Confirm To Delete Button.
-                                  </div>
-                                  <div class="modal-footer">
-                                      <a href="category.php?id=<?php echo $cat_id;?>" type="submit" class="btn btn-success" data-dismiss="modal">Close</a>
-                                      <a href="category.php?id=<?php echo $cat_id;?>" type="button" class="btn btn-danger">Confirm To Delete</a>
+                                   <form action="users.php?do=Delete&d_id=<?php echo $child_cat_id; ?>" method ="POST">
+                                    <input type="submit" name="deleteUser" class="btn btn-danger" value="Confirm">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                                   </form>
                                   </div>
                                 </div>
                               </div>
@@ -403,20 +402,33 @@
                        ?>
                     </tbody>
                 </table>
-
                 <?php 
-                  if (isset($_GET['delete'])) 
+
+                  // Dalete User
+                  if ( isset($_GET['d_id']) ) 
                   {
-                    $userID = $_GET['id'];
-                    $query = "DELETE FROM category WHERE id = '$userID'";
-                    $deleteUser = mysqli_query($connect, $query);
-                    if ($deleteUser)
+                    $deleteUserID = $_GET['d_id'];
+
+                    //Remove the old image Form the folder
+                    $removeQuery = "SELECT * FROM category WHERE cat_id = '$deleteUserID'";
+                    $removeImage = mysqli_query($connect, $removeQuery);
+                    while ($row = mysqli_fetch_assoc($removeImage))
                     {
-                      header("Location: category.php");
+                      $rImage = $row['image'];
+                      unlink("dist/img/users/" . $rImage);
                     }
-                    else
+
+                    $query = "DELETE FROM category WHERE cat_id = '$deleteUserID'";
+
+                    $delUser = mysqli_query($connect, $query);
+
+
+                    if ( $delUser) 
                     {
-                      die("Operation Failed. " . mysqli_error($connect));
+                      header("Location: users.php?do=Manage");
+                    }
+                    else{
+                      die("MySQL Database Error." . mysqli_error($connect));
                     }
                   }
                  ?>

@@ -61,131 +61,111 @@
                           <th scope="col">Username</th>
                           <th scope="col">Email</th>
                           <th scope="col">Phone</th>
-                          <th scope="col">Gender</th>
-                          <th scope="col">Status</th>
                           <th scope="col">Role</th>
                           <th scope="col">Join Date</th>
+                          <th scope="col">Status</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
-                        <tbody>
-                          <?php 
-                          $query = "SELECT * FROM users";
-                          $allUsers = mysqli_query($connect, $query);
-                          $i = 0;
 
-                          while( $row = mysqli_fetch_assoc($allUsers) )
-                           {
-                            $user_id    = $row['user_id'];
-                            $fullname   = $row['fullname'];
-                            $username   = $row['username'];
-                            $email      = $row['email'];
-                            $password   = $row['password'];
-                            $phone      = $row['phone'];
-                            $gender     = $row['gender'];
-                            $address    = $row['address'];
-                            $status     = $row['status'];
-                            $user_role  = $row['user_role'];
-                            $join_date  = $row['join_date'];
-                            $image      = $row['image'];
-                            $i++;
-                            ?>
+                      <tbody>
+                        <?php 
+                        $query = "SELECT * FROM users";
+                        $allUsers = mysqli_query($connect, $query);
+                        $i = 0;
 
-                            <tr>
-                              <th scope="row"><?php echo $i; ?></th>
-                              <th scope="row">
-                                <?php 
-                                if ( !empty($image) ) 
-                                { ?>
-                                <img src="dist/img/users/<?php echo $image; ?>" style="border-radius:60%; width:25px; height:25px;">
-                                <?php }
+                        while( $row = mysqli_fetch_assoc($allUsers) )
+                         {
+                          $user_id    = $row['user_id'];
+                          $fullname   = $row['fullname'];
+                          $username   = $row['username'];
+                          $email      = $row['email'];
+                          $password   = $row['password'];
+                          $phone      = $row['phone'];
+                          $address    = $row['address'];
+                          $user_role  = $row['user_role'];
+                          $join_date  = $row['join_date'];
+                          $image      = $row['image'];
+                          $status     = $row['status'];
+                          $i++;
+                          ?>
 
-                                else
-                                { ?>
-                                  <img src="dist/img/users/default.png" style="border-radius:60%; width:25px; height:25px;">
-                                <?php }
-                                 ?>
-                              </th>
-                              <th scope="row"> <?php echo $fullname; ?> </th>
-                              <th scope="row"> <?php echo $username; ?> </th>
-                              <th scope="row"> <?php echo $email; ?> </th>
-                              <th scope="row"> <?php echo $phone; ?> </th>
-                               <th scope="row">
-                                <?php
-                                if ( $gender == 1 ) 
-                                { ?>
-                                   <span class="badge badge-dark">Male</span>
-                                <?php }
-                                elseif ( $gender == 2 ) 
-                                { ?>
-                                   <span class="badge badge-dark">Female</span>
-                                 <?php } 
-                              ?> 
-                              </th>
-                              <th scope="row">
-                                <?php
-                                if ( $status == 1 ) 
-                                { ?>
-                                   <span class="badge badge-success">Active</span>
-                                <?php }
-                                elseif ( $status == 2 ) 
-                                { ?>
-                                   <span class="badge badge-danger">In-Active</span>
-                                 <?php } 
-                              ?> 
-                              </th>
-                              <th scope="row">
-                                <?php
-                                if ( $user_role == 1 ) 
-                                { ?>
-                                   <span class="badge badge-warning">Super Admin</span>
-                                <?php }
-                                elseif ( $user_role == 2 ) 
-                                { ?>
-                                   <span class="badge badge-primary">Editor</span>
-                                 <?php } 
-                                elseif ( $user_role == 3 ) 
-                                { ?>
-                                   <span class="badge badge-info">Users</span>
-                                 <?php } 
-                              ?> 
-                               </th>
-                                 <th scope="row"><?php echo $join_date; ?> 
-                               </th>
-                               
-                              <td>
-                                <div class="action-bar">
-                                  <ul>
-                                    <li><a href="users.php?do=Edit&u_id=<?php echo $user_id; ?>"><i class="fa fa-edit"></i></a></li>
-                                    <li><a href="" data-toggle="modal" data-target="#deleteUser<?php echo $user_id; ?>"><i class="fa fa-trash"></i></a></li>
-                                  </ul>
-                                </div>
-                              </td>
+                          <tr>
+                            <th scope="row"><?php echo $i; ?></th>
+                            <th scope="row">
+                              <?php 
+                              if ( !empty($image) ) 
+                              { ?>
+                              <img src="dist/img/users/<?php echo $image; ?>" style="border-radius:60%; width:25px; height:25px;">
+                              <?php }
 
-                              <!--Delet User Confirmation Modal -->
-                            <div class="modal fade" id="deleteUser<?php echo $user_id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel"> Do You Confirm To Delete This User.? </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form action="users.php?do=Delete&d_id=<?php echo $user_id; ?>" method ="POST">
-                                    <input type="submit" name="deleteUser" class="btn btn-danger" value="Confirm">
-                                      <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-                                    </form>
+                              else
+                              { ?>
+                                <img src="dist/img/users/default.png" style="border-radius:60%; width:25px; height:25px;">
+                              <?php }
+                               ?> </th>
+                            <th scope="row"> <?php echo $fullname; ?> </th>
+                            <th scope="row"> <?php echo $username; ?> </th>
+                            <th scope="row"> <?php echo $email; ?> </th>
+                            <th scope="row"> <?php echo $phone; ?> </th>
+                            <th scope="row">
+                              <?php
+                              if ( $user_role == 1 ) 
+                              { ?>
+                                 <span class="badge badge-warning">Super Admin</span>
+                              <?php }
+                              elseif ( $user_role == 2 ) 
+                              { ?>
+                                 <span class="badge badge-primary">Editor</span>
+                               <?php } 
+                              elseif ( $user_role == 3 ) 
+                              { ?>
+                                 <span class="badge badge-info">Users</span>
+                               <?php } ?> </th>
+                            <th scope="row"><?php echo $join_date; ?> </th>
+                            <th scope="row">
+                              <?php
+                              if ( $status == 1 ) 
+                              { ?>
+                                 <span class="badge badge-success">Active</span>
+                              <?php }
+                              elseif ( $status == 2 ) 
+                              { ?>
+                                 <span class="badge badge-danger">In-Active</span>
+                               <?php } ?>
+                             </th>
+                            <td>
+                              <div class="action-bar">
+                                <ul>
+                                  <li><a href="users.php?do=Edit&u_id=<?php echo $user_id; ?>"><i class="fa fa-edit"></i></a></li>
+                                  <li><a href="" data-toggle="modal" data-target="#deleteUser<?php echo $user_id; ?>"><i class="fa fa-trash"></i></a></li>
+                                </ul>
+                              </div></td>
+
+                                <!--Delet User Confirmation Modal -->
+                              <div class="modal fade" id="deleteUser<?php echo $user_id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel"> Do You Confirm To Delete This User.? </h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="users.php?do=Delete&d_id=<?php echo $user_id; ?>" method ="POST">
+                                      <input type="submit" name="deleteUser" class="btn btn-danger" value="Confirm">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                                      </form>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
                           </tr>
 
-                           <?php }
-                          ?>
-                        </tbody>
+                         <?php }
+                        ?>
+                      </tbody>
                     </table>
                 </div>
             </div>
@@ -234,14 +214,8 @@
                         </div>
 
                         <div class="col-lg-6">
-                        <div class="form-group">
-                        <label>Gender</label>
-                        <select name="gender" class="form-control" >
-                          <option value="2">Please Select The Gender</option>
-                          <option value="1">Male</option>
-                          <option value="2">Female</option>
-                        </select>
-                        </div>
+
+                      
                           
                         <div class="form-group">
                         <label>Phone No.</label>
@@ -298,7 +272,6 @@
                 $fullname   = $_POST['fullname'];
                 $username   = $_POST['username'];
                 $email      = $_POST['email'];
-                $gender     = $_POST['gender'];
                 $phone      = $_POST['phone'];
                 $address    = $_POST['address'];
                 $status     = $_POST['status'];
@@ -317,25 +290,46 @@
                 {
                   // Encrypted Password
                   $hassedPass = sha1($password);
-                  
-                  // Change the image name
-                  $randomNumber = rand(0,9999999);
-                  $imageFile = $randomNumber.$image;
 
-                  // Move the file to it's destination folder
-                  move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
-
-                  $query = "INSERT INTO users (fullname, username, email, password, gender, phone, address, status, user_role, join_date, image) VALUES ('$fullname', '$username', '$email', '$hassedPass', '$gender', '$phone', '$address', '$status', '$user_role', now(), '$imageFile')";
-
-                  $registerUser = mysqli_query($connect, $query);
-
-                  if ( $registerUser) 
+                  if (!empty($image)) 
                   {
-                    header("Location: users.php?do=Manage");
+                   // Change the image name
+                    $randomNumber = rand(0,9999999);
+                    $imageFile = $randomNumber.$image;
+
+                    // Move the file to it's destination folder
+                    move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
+
+                    $query = "INSERT INTO users (fullname, username, email, password, phone, address, status, user_role, join_date, image) VALUES ('$fullname', '$username', '$email', '$hassedPass', '$phone', '$address', '$status', '$user_role', now(), '$imageFile')";
+
+                    $registerUser = mysqli_query($connect, $query);
+
+                    if ( $registerUser) 
+                    {
+                      header("Location: users.php?do=Manage");
+                    }
+                    else
+                    {
+                      die("MySQL Database Error" . mysqli_error($connect));
+                    }
                   }
-                  else{
-                    die("MySQL Database Error" . mysqli_error($connect));
+
+                  else 
+                  {
+                    $query = "INSERT INTO users (fullname, username, email, password, phone, address, status, user_role, join_date) VALUES ('$fullname', '$username', '$email', '$hassedPass', '$phone', '$address', '$status', '$user_role', now() )";
+
+                    $registerUser = mysqli_query($connect, $query);
+
+                    if ( $registerUser) 
+                    {
+                      header("Location: users.php?do=Manage");
+                    }
+                    else
+                    {
+                      die("MySQL Database Error" . mysqli_error($connect));
+                    }
                   }
+
                 }
               }
             }
@@ -359,7 +353,6 @@
                 $email      = $row['email'];
                 $password   = $row['password'];
                 $phone      = $row['phone'];
-                $gender     = $row['gender'];
                 $address    = $row['address'];
                 $status     = $row['status'];
                 $user_role  = $row['user_role'];
@@ -406,14 +399,8 @@
                         </div>
 
                         <div class="col-lg-6">
-                        <div class="form-group">
-                        <label>Gender</label>
-                        <select name="gender" class="form-control" value="<?php echo $gender; ?>">
-                          <option value="2">Please Select The Gender</option>
-                          <option value="1" <?php if ($gender == 1) {echo 'selected';} ?> >Male</option>
-                          <option value="2" <?php if ($gender == 2) {echo 'selected';} ?> >Female</option>
-                        </select>
-                        </div>
+                          
+                       
                           
                         <div class="form-group">
                         <label>Phone No.</label>
@@ -489,7 +476,6 @@
                 $fullname     = $_POST['fullname'];
                 $username     = $_POST['username'];
                 $email        = $_POST['email'];
-                $gender       = $_POST['gender'];
                 $phone        = $_POST['phone'];
                 $address      = $_POST['address'];
                 $status       = $_POST['status'];
@@ -529,7 +515,7 @@
                     // Move the file to it's destination folder
                     move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
 
-                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
+                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
 
                     $updateUserInfo = mysqli_query($connect, $query);
 
@@ -553,20 +539,18 @@
                     $hassedPass = sha1($password);
 
               
-                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
+                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', password='$hassedPass', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
 
                     $updateUserInfo = mysqli_query($connect, $query);
 
-                  if ($updateUserInfo) 
-                  {
-                    header("Location: users.php?do=Manage");
+                    if ($updateUserInfo) 
+                      {
+                        header("Location: users.php?do=Manage");
+                      }
+                      else{
+                        die("MySQL Database Error." . mysqli_error($connect));
+                      }
                   }
-                  else{
-                    die("MySQL Database Error." . mysqli_error($connect));
-                  }
-
-                  }
-                  
                 }
 
 
@@ -591,7 +575,7 @@
                   // Move the file to it's destination folder
                   move_uploaded_file($image_tmp, "dist/img/users/" . $imageFile);
 
-                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
+                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', phone='$phone', address='$address', status='$status', user_role='$user_role', image='$imageFile' WHERE user_id = '$updateUserID'";
 
                   $updateUserInfo = mysqli_query($connect, $query);
 
@@ -609,17 +593,17 @@
                 ////////////////////////////////////////////
                 else if ( empty($password) && empty($image))
                 {
-                  $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', gender='$gender', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
+                    $query = "UPDATE users SET fullname='$fullname', username='$username', email='$email', phone='$phone', address='$address', status='$status', user_role='$user_role' WHERE user_id = '$updateUserID'";
 
-                  $updateUserInfo = mysqli_query($connect, $query);
+                    $updateUserInfo = mysqli_query($connect, $query);
 
-                  if ($updateUserInfo) 
-                  {
-                    header("Location: users.php?do=Manage");
-                  }
-                  else{
-                    die("MySQL Database Error." . mysqli_error($connect));
-                  }
+                    if ($updateUserInfo) 
+                    {
+                      header("Location: users.php?do=Manage");
+                    }
+                    else{
+                      die("MySQL Database Error." . mysqli_error($connect));
+                    }
 
                   }
 

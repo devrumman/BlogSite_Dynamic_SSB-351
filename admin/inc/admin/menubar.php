@@ -162,14 +162,28 @@
                   <p>Manage All Post</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="post.php?do=Add" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Post</p>
+                </a>
+              </li>
             </ul>
           </li>
 
+          <!---------- Manage Category And Sub-catagory ------------------->
+          <li class="nav-item">
+            <a href="allcomments.php" class="nav-link">
+              <i class="fas fa-comment nav-icon"></i>
+              <p>All Comments</p>
+            </a>
+          </li>
 
-          <!------------- Manage Profaile ------------------->
+
+          <!-------------  logout ------------------->
           <li class="nav-item">
             <a href="logout.php" class="nav-link">
-               <i class="fas fa-sign-out-alt"></i>
+               <i class="fas fa-sign-out-alt nav-icon"></i>
               <p>
                 Logout
               </p>
