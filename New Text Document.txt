@@ -1,7 +1,0 @@
- <li><i class="fa fa-clock-o"></i>Dec 15, 2018</li>
-                                        <?php 
-                                            $sql = "SELECT * FROM comment WHERE cmt_post_id ='$post_id' AND cmt_status = 1";
-                                            $readcomments = mysqli_query($connect, $sql);
-                                            $total_comment = mysqli_num_rows($readcomments);
-                                        ?>
-                                        <li><i class="fa fa-comment-o"></i><?php echo $total_comment;?></li>
